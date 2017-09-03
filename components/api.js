@@ -16,22 +16,28 @@ export const Api = {
 				token: response.access_token,
 				token_type: response.token_type
 			})
+      localStorage.setItem('user', JSON.stringify(
+          {
+            name: self.state.username,
+            token: response.access_token,
+            token_type: response.token_type
+          }
+        )
+      )
+      this.getWhells(self);
 		})
     .catch(function (e) {
-      self.setState({
-        Zsubmited: true,
-      })
-      console.log(e)
     })
   },
 
   getWhells: function(self) {
-    console.log(self)
+    console.log('GW')
+    var user = JSON.parse(localStorage.getItem('user'))
     return fetch('http://212.193.45.225/MLServer/api/wells',
     	   {
     	   	method: 'GET',
     	   	headers: {
-    	   		'authorization': self.state.token_type + ' ' + self.state.token,
+    	   		'authorization': user.token_type + ' ' + user.token,
             'Accept': 'application/json'
     	    },
     	    credentials: 'same-origin'
@@ -39,10 +45,7 @@ export const Api = {
       .then(ApiUtils.checkStatus)
       .then(response => response.json())
       .then(response => {
-      	console.log('Whells ' + response)
-  	    self.props.login({
-  	      whells: response
-  	    })
+        localStorage.setItem('whells', JSON.stringify(response))
       })
       .catch(function (e) { console.log(e) })
   }

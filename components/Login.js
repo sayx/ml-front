@@ -31,11 +31,6 @@ export class LoginContainer extends Component {
     });
   }
 
-  onFormSubmit(e) {
-      console.log('onFormSubmit', e)
-      console.log('this.state', this.state);
-  };
-
   render() {
     return (
     <div className='login-form'>

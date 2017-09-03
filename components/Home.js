@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Api } from './api'
 import { NavBar, WellboresList } from '../layout/'
 
 export class HomeContainer extends Component {
@@ -9,7 +8,6 @@ export class HomeContainer extends Component {
     this.state = {      
       whells: ''
     };
-    Api.getWhells(this)
 
     const self = this
   }
